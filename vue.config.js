@@ -1,3 +1,5 @@
 module.exports = {
-    // add webpack options
-}
+    // publicPath: process.env.NODE_ENV === 'production'
+    //     ? 'https://www.musicomm.co.kr'
+    //     : '/'
+};

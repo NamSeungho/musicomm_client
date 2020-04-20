@@ -11,10 +11,12 @@ import axios from "axios";
 let config = {
     // baseURL: process.env.baseURL || process.env.apiUrl || ""
     // timeout: 60 * 1000, // Timeout
-    // withCredentials: true, // Check cross-site Access-Control
+    withCredentials: true   // Check cross-site Access-Control
 };
 
 const _axios = axios.create(config);
+// axios.defaults.withCredentials = true
+// console.log(axios.defaults.withCredentials);
 
 _axios.interceptors.request.use(
     function(config) {
@@ -52,10 +54,10 @@ Plugin.install = function(Vue) {
             get() {
                 return _axios;
             }
-        },
+        }
     });
 };
 
-Vue.use(Plugin)
+Vue.use(Plugin);
 
 export default Plugin;
