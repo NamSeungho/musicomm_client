@@ -124,13 +124,19 @@
 
     export default {
         metaInfo() {
+            const videoId = this.videoId;
             const musicTitle = this.musicTitle;
             const musicArtistTitle = this.musicArtistTitle;
             return {
                 title: musicArtistTitle + ' - ' + musicTitle + ' | 무료 음악감상 사이트 뮤지컴',
                 titleTemplate: musicArtistTitle + ' - ' + musicTitle + ' | 무료 음악감상 사이트 뮤지컴',
                 meta: [
-                    { vmid: 'description', name: 'description', content: '음악 감상과 함께 가사와 관련된 음악을 제공합니다.' }
+                    { vmid: 'description', name: 'description', content: '음악 감상과 함께 가사와 관련된 음악을 제공합니다.' },
+                    { vmid: 'og:type', property: 'og:type', content: 'website' },
+                    { vmid: 'og:title', property: 'og:title', content: musicArtistTitle + ' - ' + musicTitle + ' | 무료 음악감상 사이트 뮤지컴' },
+                    { vmid: 'og:description', property: 'og:description', content: '음악 감상과 함께 가사와 관련된 음악을 제공합니다.' },
+                    { vmid: 'og:image', property: 'og:image', content: 'https://i.ytimg.com/vi/' + videoId + '/mqdefault.jpg' },
+                    { vmid: 'og:url', property: 'og:url', content: 'https://www.musicomm.co.kr/music/' + videoId }
                 ]
             }
         },
