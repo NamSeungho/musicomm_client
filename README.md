@@ -1,24 +1,14 @@
-# newproject
+# Musicomm Client Source
 
-## Project setup
+## Renewal
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+- ejs 에서 Vue.js로 프론트엔드 개편
+- Mongo DB 서버 쿼리 튜닝
+- 서버 로직 파일 모듈화
 ```
 
-### Compiles and minifies for production
+## contact info
 ```
-npm run build
+- Developer: Seungho Nam
+- E-mail: skatmdgh1221@nate.com
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
