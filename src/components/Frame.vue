@@ -41,11 +41,31 @@
                 return this.$store.getters.loading;
             }
         },
+        created () {
+            this.setResolution();
+            window.addEventListener('resize', this.detectResize);
+        },
         mounted () {
             //
         },
         methods: {
-            //
+            detectResize: function () {
+                if (window.innerWidth < 1680) {
+                    this.$store.dispatch('setResolution', 'MEDIUM');
+                } else {
+                    this.$store.dispatch('setResolution', 'STANDARD');
+                }
+            },
+            setResolution: function () {
+                if (window.innerWidth < 1680) {
+                    this.$store.dispatch('setResolution', 'MEDIUM');
+                } else {
+                    this.$store.dispatch('setResolution', 'STANDARD');
+                }
+            }
+        },
+        destroyed () {
+            window.removeEventListener('resize', this.detectResize);
         }
     }
 </script>

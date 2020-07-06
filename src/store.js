@@ -14,7 +14,8 @@ export default new Vuex.Store({
         playType: '',
         signInPopupType: '',
         signInPopupStatus: '',
-        serverUrl: process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:2000/'
+        serverUrl: process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:2000/',
+        resolution: 'MEDIUM'
     },
     getters: {
         user (state) {
@@ -46,6 +47,9 @@ export default new Vuex.Store({
         },
         serverUrl (state) {
             return state.serverUrl
+        },
+        resolution (state) {
+            return state.resolution
         }
     },
     mutations: {
@@ -75,71 +79,41 @@ export default new Vuex.Store({
         },
         setSignInPopupStatus(state, payload) {
             state.signInPopupStatus = payload.signInPopupStatus
+        },
+        setResolution(state, payload) {
+            state.resolution = payload.resolution
         }
     },
     actions: {
-        setUser({
-            commit
-        }, user) {
-            commit('setUser', {
-                user
-            })
+        setUser({ commit }, user) {
+            commit('setUser', { user });
         },
-        setNickname({
-            commit
-        }, nickname) {
-            commit('setNickname', {
-                nickname
-            })
+        setNickname({ commit }, nickname) {
+            commit('setNickname', { nickname });
         },
-        setEmail({
-            commit
-        }, email) {
-            commit('setEmail', {
-                email
-            })
+        setEmail({ commit }, email) {
+            commit('setEmail', { email });
         },
-        setLoading({
-            commit
-        }, loading) {
-            commit('setLoading', {
-                loading
-            })
+        setLoading({ commit }, loading) {
+            commit('setLoading', { loading });
         },
-        setPlaylist({
-            commit
-        }, playlist) {
-            commit('setPlaylist', {
-                playlist
-            })
+        setPlaylist({ commit }, playlist) {
+            commit('setPlaylist', { playlist });
         },
-        setVideoId({
-            commit
-        }, videoId) {
-            commit('setVideoId', {
-                videoId
-            })
+        setVideoId({ commit }, videoId) {
+            commit('setVideoId', { videoId });
         },
-        setPlayType({
-            commit
-        }, playType) {
-            commit('setPlayType', {
-                playType
-            })
+        setPlayType({ commit }, playType) {
+            commit('setPlayType', { playType });
         },
-        setSignInPopupType({
-            commit
-        }, signInPopupType) {
-            commit('setSignInPopupType', {
-                signInPopupType
-            })
+        setSignInPopupType({ commit }, signInPopupType) {
+            commit('setSignInPopupType', { signInPopupType });
         },
-        setSignInPopupStatus({
-            commit
-        }, signInPopupStatus) {
-            commit('setSignInPopupStatus', {
-                signInPopupStatus
-            })
+        setSignInPopupStatus({ commit }, signInPopupStatus) {
+            commit('setSignInPopupStatus', { signInPopupStatus });
+        },
+        setResolution({ commit }, resolution) {
+            commit('setResolution', { resolution });
         }
     }
 });
