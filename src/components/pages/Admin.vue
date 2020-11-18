@@ -84,6 +84,25 @@
 
             <p id="inserted_artist_id_title">Inserted Artist ID : <span id="inserted_artist_id">{{ resultArtistId }}</span></p>
         </div>
+
+        <div class="register_area" id="change_video_id_area">
+            <p class="register_area_title">Change Video Id</p>
+
+            <div class="register_input_area">
+                <span class="register_input_area_title">Old video id</span>
+                <input id="input_old_video_id" class="register_input_area_input form-control" type="text" placeholder="Old video id" v-model="inputOldVideoId" />
+            </div>
+            <div class="register_input_area">
+                <span class="register_input_area_title">New video id</span>
+                <input id="input_new_video_id" class="register_input_area_input form-control" type="text" placeholder="New video id" v-model="inputNewVideoId" />
+
+                <div id="change_video_id_button" class="register_button" @click="changeVideoId">Change</div>
+            </div>
+        </div>
+
+        <div style="display: none;">
+            <img v-for="(music, index) in allMusic" :key="index" class="music_list_item_thumbnail" :src="'https://i.ytimg.com/vi/' + music.video + '/mqdefault.jpg'" />
+        </div>
     </div>
 </template>
 
@@ -106,8 +125,14 @@
                 inputArtistDebut: '',
                 inputArtistType: '',
                 resultArtistId: '',
-                collaborationArtists: []
+                collaborationArtists: [],
+                inputOldVideoId: '',
+                inputNewVideoId: '',
+                allMusic: []
             }
+        },
+        mounted () {
+            this.getAllMusic();
         },
         methods: {
             insertMusic: function () {
@@ -230,6 +255,39 @@
                     title: '',
                     subtitle: ''
                 });
+            },
+            getAllMusic: function () {
+                axios.post(this.$store.getters.serverUrl + 'api/admin/get_music', {
+                    //
+                }).then((response) => {
+                    console.log(response);
+
+                    this.allMusic = response.data.result;
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            changeVideoId: function () {
+                if( this.inputOldVideoId === '' ) {
+                    alert('Please enter old video id');
+                    return;
+                }
+                if( this.inputNewVideoId === '' ) {
+                    alert('Please enter new video id');
+                    return;
+                }
+
+                axios.post(this.$store.getters.serverUrl + 'api/admin/change_music_id', {
+                    oldVideoId: this.inputOldVideoId,
+                    newVideoId: this.inputNewVideoId
+                }).then((response) => {
+                    console.log(response);
+
+                    this.inputOldVideoId = '';
+                    this.inputNewVideoId = '';
+                }).catch((error) => {
+                    console.log(error);
+                });
             }
         }
     }
@@ -244,7 +302,7 @@
 
     .register_area_title { padding-top: 60px; margin-bottom: 20px; line-height: 30px; font-weight: 400; letter-spacing: 0.8px; font-size: 26pt; color: #FFFFFF; }
     .register_input_area { margin-bottom: 10px; }
-    .register_input_area_title { width: 60px; display: inline-block; line-height: 36px; height: 36px; font-weight: 300; letter-spacing: 0.8px; font-size: 16pt; color: #FFFFFF; margin-right: 10px; vertical-align: top; }
+    .register_input_area_title { width: 105px; display: inline-block; line-height: 36px; height: 36px; font-weight: 300; letter-spacing: 0.8px; font-size: 16pt; color: #FFFFFF; margin-right: 10px; vertical-align: top; }
     .register_input_area_input { width: 400px; height: 36px; padding: 10px; font-size: 16pt; display: inline-block; letter-spacing: 0.5px; }
     .register_button { width: 150px; margin-left: 1%; color: rgba(255, 255, 255, 0.9) !important; background: #F361A6 !important; letter-spacing: 1px; padding: 10px 0; cursor: pointer; font-size: 14pt; line-height: 1.2; border-radius: 4px; border: 1px solid transparent; white-space: nowrap; display: inline-block; margin-bottom: 0; font-weight: normal; text-align: center; vertical-align: middle; touch-action: manipulation; }
 
