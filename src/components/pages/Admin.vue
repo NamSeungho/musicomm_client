@@ -100,6 +100,17 @@
             </div>
         </div>
 
+        <div class="register_area" id="remove_video_area">
+            <p class="register_area_title">Remove Video</p>
+
+            <div class="register_input_area">
+                <span class="register_input_area_title">Video id</span>
+                <input id="input_removed_video_id" class="register_input_area_input form-control" type="text" placeholder="video id" v-model="inputRemovedVideoId" />
+
+                <div id="remove_video_button" class="register_button" @click="removeVideo">Remove</div>
+            </div>
+        </div>
+
         <div style="display: none;">
             <img v-for="(music, index) in allMusic" :key="index" class="music_list_item_thumbnail" :src="'https://i.ytimg.com/vi/' + music.video + '/mqdefault.jpg'" />
         </div>
@@ -128,6 +139,7 @@
                 collaborationArtists: [],
                 inputOldVideoId: '',
                 inputNewVideoId: '',
+                inputRemovedVideoId: '',
                 allMusic: []
             }
         },
@@ -285,6 +297,22 @@
 
                     this.inputOldVideoId = '';
                     this.inputNewVideoId = '';
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            removeVideo: function () {
+                if( this.inputRemovedVideoId === '' ) {
+                    alert('Please enter video id');
+                    return;
+                }
+
+                axios.post(this.$store.getters.serverUrl + 'api/admin/delete_music', {
+                    videoId: this.inputRemovedVideoId
+                }).then((response) => {
+                    console.log(response);
+
+                    this.inputRemovedVideoId = '';
                 }).catch((error) => {
                     console.log(error);
                 });

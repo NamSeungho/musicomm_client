@@ -39,7 +39,7 @@
             </div>
 
             <div>
-                <div class="container" style=" position: relative; width: 100%; height: auto; text-align: center; padding: 0;">
+                <div class="ad_container">
                     <div style="width: 50%; height: 100%; display: inline-block; text-align: right; padding-right: 7px;">
                         <!-- 데스크탑 하단 배너 01 -->
                         <Adsense :styles="'display:inline-block;width:468px;height:60px'" :clientNo="'ca-pub-7268044498226837'" :slotNo="'4528767521'" />
@@ -142,7 +142,8 @@
 
         #artist_list_container {
             & { position: relative; width: 100%; color: white; background: repeating-linear-gradient(140deg,#f361a6, #6b4d71, #f361a6 2000px); }
-            .container { position: relative; width: 100%; padding: 30px 50px 20px; margin: 0 auto; }
+            .container { width: 100%; padding: 30px 50px 0; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
+            .ad_container { width: 100%; height: auto; text-align: center; padding: 10px 0 3px 0; }
 
             #artist_list_title { font-size: 34px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
             #artist_list_subtitle { font-size: 24px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }

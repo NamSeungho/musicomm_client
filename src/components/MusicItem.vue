@@ -22,7 +22,7 @@
                 <span class="music_video_list_item_release_date">{{ music.release.substr(0,4) }}.{{ music.release.substr(4,2) }}.{{ music.release.substr(6,2) }}</span>
             </div>
             <div class="music_video_list_item_fav_div">
-                <img v-if="music.isFavorite >= 0" class="music_video_list_item_fav_img on" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="$emit('favorite', music.video, false)" />
+                <img v-if="music.isFavorite" class="music_video_list_item_fav_img on" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="$emit('favorite', music.video, false)" />
                 <img v-else class="music_video_list_item_fav_img" src="/images/icon_fav_off.png" alt="즐겨찾기 취소" @click="$emit('favorite', music.video, true)" />
             </div>
         </div>

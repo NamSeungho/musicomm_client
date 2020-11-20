@@ -44,9 +44,25 @@
         url('./fonts/nanum-pen-script/nanum-pen-script-v15-latin_korean-regular.svg#NanumPenScript') format('svg'); /* Legacy iOS */
     }
 
+    /*@font-face {*/
+    /*    font-family: 'tmoney';*/
+    /*    font-style: normal;*/
+    /*    font-weight: 400;*/
+    /*    src: url('./fonts/tmoney/TmoneyRoundWindRegular.otf') format('opentype'),*/
+    /*    url('./fonts/tmoney/TmoneyRoundWindRegular.ttf') format('truetype')*/
+    /*}*/
+
+    /*@font-face {*/
+    /*    font-family: 'tmoney';*/
+    /*    font-style: normal;*/
+    /*    font-weight: 600;*/
+    /*    src: url('./fonts/tmoney/TmoneyRoundWindExtraBold.otf') format('opentype'),*/
+    /*    url('./fonts/tmoney/TmoneyRoundWindExtraBold.ttf') format('truetype')*/
+    /*}*/
+
     * { margin: 0; padding: 0; border: none; box-sizing: border-box; letter-spacing: 1px; }
     html {
-        font-family: 'Nanum Pen Script', 'Roboto', sans-serif;
+        font-family: 'tmoney', 'Nanum Pen Script', 'Roboto', sans-serif;
         -ms-text-size-adjust: 100%;
         -webkit-text-size-adjust: 100%;
     }

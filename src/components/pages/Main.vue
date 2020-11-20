@@ -55,7 +55,7 @@
                                 <img class="music_list_item_play" src="/images/icon_play_not_filled.png" alt="재생" />
                             </div>
                             <div class="music_list_item_fav_div">
-                                <img class="music_list_item_fav on" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="favoriteMusic(music.video, false)" v-if="music.isFavorite >= 0" />
+                                <img class="music_list_item_fav on" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="favoriteMusic(music.video, false)" v-if="music.isFavorite" />
                                 <img class="music_list_item_fav" src="/images/icon_fav_not_on.png" alt="즐겨찾기 취소" @click="favoriteMusic(music.video, true)" v-else />
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                     this.latestMusic = response.data.result.map(music => {
                         music.isActive = false;
                         music.isArrow = false;
-
+                        music.isFavorite = music.isFavorite !== -1;
                         music.artist += (music.artist_en === '' ? '' : ' (' + music.artist_en + ')');
                         music.singer.forEach(singer => {
                             singer.name = singer.title + (singer.title_en === '' ? '' : ' (' + singer.title_en + ')');
@@ -223,7 +223,7 @@
 
                     this.rankedMusic = response.data.result.map(music => {
                         music.isActive = false;
-
+                        music.isFavorite = music.isFavorite !== -1;
                         music.artist += (music.artist_en === '' ? '' : ' (' + music.artist_en + ')');
                         music.singer.forEach(singer => {
                             singer.name = singer.title + (singer.title_en === '' ? '' : ' (' + singer.title_en + ')');
@@ -278,12 +278,12 @@
                 }).then(() => {
                     this.rankedMusic.forEach(music => {
                         if (music.video === videoId) {
-                            music.isFavorite = isFavorite ? 1 : -1;
+                            music.isFavorite = isFavorite;
                         }
                     });
                     this.latestMusic.forEach(music => {
                         if (music.video === videoId) {
-                            music.isFavorite = isFavorite ? 1 : -1;
+                            music.isFavorite = isFavorite;
                         }
                     });
                 }).catch((error) => {

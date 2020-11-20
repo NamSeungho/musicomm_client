@@ -73,34 +73,6 @@
                 </div>
                 <div id="music_video_list_wrap">
                     <MusicItem v-for="(music, index) in exposedLatestMusic" :key="index" :music="music" @play="playMusic" @favorite="favoriteMusic" />
-<!--                    <div class="music_item" v-for="(music, index) in computedMusicList" v-bind:key="index">-->
-<!--                        <div class="music_item_info_wrap">-->
-<!--                            <div>-->
-<!--                                <router-link :to="'/music/' + music.video" tag="div" class="music_item_thumbnail_cover" v-bind:class="{ active: music.isActive }" @mouseenter.native="music.isActive = true" @mouseleave.native="music.isActive = false" @mousemove.native="music.isActive = true">-->
-<!--                                    <img class="music_item_thumbnail_cover_img" src="/images/icon_play_round.png" alt="" />-->
-<!--                                </router-link>-->
-<!--                                <img class="music_item_thumbnail" @mouseenter="music.isActive = true" @mouseleave="music.isActive = false" :src="'https://i.ytimg.com/vi/' + music.video + '/mqdefault.jpg'" :alt="music.title" />-->
-<!--                            </div>-->
-<!--                            <div class="music_item_info">-->
-<!--                                <router-link :to="'/music/' + music.video" class="music_item_title">{{ music.title }}</router-link>-->
-<!--                                <router-link :to="'/artist/' + musicArtistId" class="music_item_artist">{{ musicArtistName }}</router-link>-->
-<!--                                <div class="music_item_arrow_div" v-if="music.singer.length > 1">-->
-<!--                                    <img class="music_item_arrow arrow_up" src="/images/up_arrow.png" alt="" @click="music.isArrow = false" v-if="music.isArrow" />-->
-<!--                                    <img class="music_item_arrow" src="/images/down_arrow.png" alt="" @click="music.isArrow = true" v-else />-->
-<!--                                    <div class="music_item_singer_div" v-if="music.isArrow">-->
-<!--                                        <div v-for="(singer, index) in music.singer" :key="index">-->
-<!--                                            <router-link :to="'/artist/' + singer._id" tag="p" class="music_item_singer_item">{{ singer.name }}</router-link>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <span class="music_item_release">{{ music.release.substr(0,4) }}.{{ music.release.substr(4,2) }}.{{ music.release.substr(6,2) }}</span>-->
-<!--                            </div>-->
-<!--                            <div class="music_item_fav_div">-->
-<!--                                <img v-if="music.isFavorite" class="music_item_fav on" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="favoriteMusic(music.video, false)" />-->
-<!--                                <img v-else class="music_item_fav" src="/images/icon_fav_off.png" alt="즐겨찾기 취소" @click="favoriteMusic(music.video, true)" />-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </section>
 
@@ -150,62 +122,6 @@
         props: {
             videoId: String
         },
-        // data: function () {
-        //     return {
-        //         isLoaded: false,
-        //         YT: null,
-        //         player: null,
-        //         playerInterval: null,
-        //         playCount: 0,
-        //         musicTitle: '',
-        //         musicArtistId: '',
-        //         musicArtistName: '',
-        //         musicArtistTitle: '',
-        //         musicSinger: [],
-        //         musicPlayCount: 0,
-        //         musicRelease: '20000101',
-        //         isMusicFavorite: false,
-        //         musicFavoriteCount: 0,
-        //         lyrics: [],
-        //         isExpandLyrics: false,
-        //         musicList: [],
-        //         musicListPage: 1
-        //     }
-        // },
-        // computed: {
-        //     resolution () {
-        //         return this.$store.getters.resolution;
-        //     },
-        //     musicCountPerPage () {
-        //         if (this.resolution === 'MEDIUM') {
-        //             return 3;
-        //         } else {
-        //             return 4;
-        //         }
-        //     },
-        //     exposedLatestMusic () {
-        //         return this.musicList.slice((this.musicListPage - 1) * this.musicCountPerPage, this.musicListPage * this.musicCountPerPage);
-        //     }
-        // },
-        // watch: {
-        //     videoId () {
-        //         this.$refs.musicTemplate.scrollTop = 0;
-        //
-        //         this.$store.dispatch('setLoading', true);
-        //
-        //         this.getMusicInfo();
-        //     },
-        //     musicCountPerPage: {
-        //         handler (value) {
-        //             console.log(this.musicListPage);
-        //             if (this.musicListPage * value > this.musicList.length) {
-        //                 this.musicListPage = Math.ceil(this.musicList.length / value);
-        //             }
-        //             console.log(this.musicListPage);
-        //         },
-        //         immediate: true
-        //     }
-        // },
         data: function () {
             return {
                 isLoaded: false,
@@ -240,7 +156,9 @@
                 }
             },
             exposedLatestMusic () {
-                return this.musicList.slice((this.musicListPage - 1) * this.musicCountPerPage, this.musicListPage * this.musicCountPerPage);
+                var a = this.musicList.slice((this.musicListPage - 1) * this.musicCountPerPage, this.musicListPage * this.musicCountPerPage);
+                console.log(a);
+                return a;
             }
         },
         watch: {
@@ -432,7 +350,7 @@
                     } else {
                         this.musicList.forEach(music => {
                             if (music.video === videoId) {
-                                music.isFavorite = !music.isFavorite;
+                                music.isFavorite = isFavorite;
                             }
                         });
                     }
@@ -468,7 +386,7 @@
                     .music_info_fav_count { padding-left: 5px; }
                 }
             }
-            
+
             #music_lyrics_section {
                 & { padding: 0 10px 40px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
 

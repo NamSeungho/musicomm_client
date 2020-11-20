@@ -33,7 +33,8 @@
         <div id="aside_container">
             <div id="aside_partition">
                 <div id="aside_partition_text_wrap">
-                    <span id="active_chatting_wrap_button" class="aside_partition_text" v-bind:class="{ on : chattingMode }" @click="chattingMode = true">채팅</span><span id="aside_partition_button_token"> / </span><span id="active_lyrics_wrap_button" class="aside_partition_text" v-bind:class="{ on : !chattingMode }" @click="chattingMode = false">가사</span>
+<!--                    <span id="active_chatting_wrap_button" class="aside_partition_text" v-bind:class="{ on : chattingMode }" @click="chattingMode = true">채팅</span><span id="aside_partition_button_token"> / </span>-->
+                    <span id="active_lyrics_wrap_button" class="aside_partition_text" v-bind:class="{ on : !chattingMode }" @click="chattingMode = false">가사</span>
                 </div>
             </div>
             <div id="aside_contents_wrap">
@@ -107,7 +108,7 @@
                 musicTime: '0:00 / 0:00',
                 lyricsTitle: '',
                 lyricsContents: '',
-                chattingMode: true,
+                chattingMode: false,
                 chattingList: [],
                 chattingMessage: '',
                 chattingFirstDraw: true
@@ -550,7 +551,7 @@
     #frame_aside #player_container #player { width: 100%; height: 253.125px; background-color: #000; display: block; line-height: 253.125px; text-align: center; color: #FFFFFF; font-weight: 400; }
 
     #frame_aside #aside_lyrics_wrap {
-        & { width: 100%; height: 100%; display: none; padding-bottom: 14px; }
+        & { width: 100%; height: 100%; display: none; padding-bottom: 10px; }
         &.on { display: block; }
 
         #aside_lyrics_container { position: relative; width: 100%; height: 100%; overflow-y: auto; }
@@ -613,13 +614,14 @@
                 &::after { content: ''; width: 100%; height: 1px; position: absolute; top: 50%; left: 0; margin-top: -0.5px; background-color: #AAAAAA; }
 
                 #aside_partition_text_wrap { position: relative; padding: 0 13px; box-sizing: border-box; background-color: #fff; display: inline-block; z-index: 1; }
-                .aside_partition_text { border-bottom: 1px solid #FFFFFF; cursor: pointer; }
-                .aside_partition_text:hover { border-bottom: 1px solid #888888; font-weight: 500; }
-                .aside_partition_text.on { border-bottom: 1px solid #333333; font-weight: 500; color: #333333; }
+                .aside_partition_text { font-weight: 500; color: #333333; }
+                /*.aside_partition_text { border-bottom: 1px solid #FFFFFF; cursor: pointer; }*/
+                /*.aside_partition_text:hover { border-bottom: 1px solid #888888; font-weight: 500; }*/
+                /*.aside_partition_text.on { border-bottom: 1px solid #333333; font-weight: 500; color: #333333; }*/
             }
 
             #aside_contents_wrap {
-                & { position: relative; width: 410px; height: calc(100% - 111px); margin: 0 auto; }
+                & { position: relative; width: 410px; height: calc(100% - 118px); margin: 0 auto; }
 
                 #aside_chatting_wrap {
                     & { width: 100%; height: 100%; display: none; padding-bottom: 14px; }

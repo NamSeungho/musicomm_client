@@ -99,17 +99,16 @@
                         </div>
                     </div>
                 </div>
-
-                <div>
-                    <div class="container" style=" position: relative; width: 100%; height: auto; text-align: center; padding: 0;">
-                        <div style="width: 50%; height: 100%; display: inline-block; text-align: right; padding-right: 7px;">
-                            <!-- 데스크탑 하단 배너 01 -->
-                            <Adsense :styles="'display:inline-block;width:468px;height:60px'" :clientNo="'ca-pub-7268044498226837'" :slotNo="'4528767521'" />
-                        </div>
-                        <div style="width: 50%; height: 100%; display: inline-block; text-align: left; padding-left: 7px;">
-                            <!-- 데스크탑 하단 배너 02 -->
-                            <Adsense :styles="'display:inline-block;width:468px;height:60px'" :clientNo="'ca-pub-7268044498226837'" :slotNo="'1371803915'" />
-                        </div>
+            </div>
+            <div>
+                <div class="ad_container">
+                    <div style="width: 50%; height: 100%; display: inline-block; text-align: right; padding-right: 7px;">
+                        <!-- 데스크탑 하단 배너 01 -->
+                        <Adsense :styles="'display:inline-block;width:468px;height:60px'" :clientNo="'ca-pub-7268044498226837'" :slotNo="'4528767521'" />
+                    </div>
+                    <div style="width: 50%; height: 100%; display: inline-block; text-align: left; padding-left: 7px;">
+                        <!-- 데스크탑 하단 배너 02 -->
+                        <Adsense :styles="'display:inline-block;width:468px;height:60px'" :clientNo="'ca-pub-7268044498226837'" :slotNo="'1371803915'" />
                     </div>
                 </div>
             </div>
@@ -277,7 +276,8 @@
 
         #artist_info_container {
             & { position: relative; width: 100%; color: white; background: repeating-linear-gradient(140deg,#f361a6, #6b4d71, #f361a6 2000px); }
-            .container { position: relative; width: 100%; padding: 30px 50px 20px; margin: 0 auto; }
+            .container { width: 100%; padding: 30px 50px 0; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
+            .ad_container { width: 100%; height: auto; text-align: center; padding: 10px 0 3px 0; }
 
             #artist_title { font-size: 34px; margin-bottom: 15px; padding-left: 10px; display: block; }
 
@@ -294,7 +294,7 @@
             }
 
             #artist_music_section {
-                & { padding: 0 10px 30px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
+                & { padding: 0 10px 25px; }
                 span, a { color: #FFFFFF; line-height: 48px; font-size: 22px; font-weight: 400; display: inline-block; vertical-align: top; }
 
                 #artist_music_title { margin-bottom: 15px; font-size: 34px; font-weight: 400; color: #FFFFFF; }
