@@ -119,8 +119,6 @@
         methods: {
             getTheme: function () {
                 this.axios.post(this.$store.getters.serverUrl + 'api/music/theme', {}).then((response) => {
-                    console.log(response);
-
                     for (let year = 2016; year <= 2020; year++) {
                         response.data.result.musicListByYear[year].forEach(music => {
                             music.singer.forEach(singer => {
@@ -190,15 +188,15 @@
             #theme_year_section {
                 & { position: relative; width: 100%; padding: 30px 50px 20px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
 
-                .theme_year_title { font-size: 34px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
-                .theme_year_subtitle { font-size: 24px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
+                .theme_year_title { font-size: 24px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
+                .theme_year_subtitle { font-size: 18px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
             }
 
             #theme_artist_section {
                 & { position: relative; width: 100%; padding: 0 50px 20px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
 
-                .theme_artist_title { font-size: 34px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
-                .theme_artist_subtitle { font-size: 24px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
+                .theme_artist_title { font-size: 24px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
+                .theme_artist_subtitle { font-size: 18px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
             }
 
             .theme_item_wrap {
@@ -219,11 +217,11 @@
 
                 .theme_item_info {
                     & { display: inline-block; padding-left: 15px; vertical-align: top; }
-                    p { font-size: 18px; }
+                    p { font-size: 15px; }
                     p > a { color: #FFFFFF; }
                     p > a:hover { text-decoration: underline; }
 
-                    .theme_item_info_title { font-size: 24px; margin: 16px 0 0; cursor: pointer; }
+                    .theme_item_info_title { font-size: 18px; margin: 14px 0 0; cursor: pointer; }
                     .theme_item_info_title:hover { text-decoration: underline; }
                     .first { padding: 8px 0 0; }
                 }

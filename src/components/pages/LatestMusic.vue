@@ -155,11 +155,11 @@
             .container { width: 100%; padding: 30px 50px 20px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
             .ad_container { width: 100%; height: auto; text-align: center; padding: 10px 0 3px 0; }
 
-            #latest_music_title { font-size: 34px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
-            #latest_music_subtitle { font-size: 24px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
+            #latest_music_title { font-size: 26px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
+            #latest_music_subtitle { font-size: 18px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
 
             .paging_button_wrap { margin: 0 auto; text-align: center; }
-            .paging_button { width: 14px; line-height:28px; margin-left: 20px; display: inline-block; font-size: 28px; cursor: pointer; }
+            .paging_button { width: 14px; line-height:28px; margin-left: 20px; display: inline-block; font-size: 18px; cursor: pointer; }
             .paging_button:nth-child(1) { margin-left: 0; }
             .paging_button.active, .paging_button:hover { border-bottom: 2px solid #FFFFFF; }
         }

@@ -8,24 +8,24 @@
                     </div>
                     <div class="popup_form_half">
                         <form class='popup_form_register' v-if="signInPopupType === 'SIGNUP'">
-                            <p class="popup_form_title">Sign up with Musicomm</p>
-                            <input type='email' placeholder='email address' v-model="signupParams.email" @keypress.enter="signup" />
-                            <input type='password' placeholder='password' v-model="signupParams.password" @keypress.enter="signup" />
-                            <input type='password' placeholder='re-password' v-model="signupParams.repassword" @keypress.enter="signup" />
-                            <input type='text' placeholder='nickname' v-model="signupParams.nickname" @keypress.enter="signup" />
-                            <div id='popup_form_signup_btn' class='popup_form_btn' @click.stop.prevent="signup">create</div>
-                            <p class='message'>Already registered? <span @click="showLoginPopup('LOGIN')">Sign In</span></p>
+                            <p class="popup_form_title">Musicomm 회원가입</p>
+                            <input type='email' placeholder='이메일주소' v-model="signupParams.email" @keypress.enter="signup" />
+                            <input type='password' placeholder='비밀번호' v-model="signupParams.password" @keypress.enter="signup" />
+                            <input type='password' placeholder='비민번호 확인' v-model="signupParams.repassword" @keypress.enter="signup" />
+                            <input type='text' placeholder='닉네임' v-model="signupParams.nickname" @keypress.enter="signup" />
+                            <div id='popup_form_signup_btn' class='popup_form_btn' @click.stop.prevent="signup">등록완료</div>
+                            <p class='message'>이미 가입하셨나요? <span @click="showLoginPopup('LOGIN')">로그인</span></p>
                         </form>
                         <form class='popup_form_login' v-if="signInPopupType === 'LOGIN'">
-                            <p class="popup_form_title">Sign in with Musicomm</p>
-                            <input type='email' placeholder='email address' v-model="loginParams.email" @keypress.enter="login" />
-                            <input type='password' placeholder='password' v-model="loginParams.password" @keypress.enter="login" />
-                            <div id='popup_form_signin_btn' class='popup_form_btn' @click.stop.prevent="login">login</div>
-                            <p class='message'>Not registered? <span @click="showLoginPopup('SIGNUP')">Create an account</span></p>
+                            <p class="popup_form_title">Musicomm 로그인</p>
+                            <input type='email' placeholder='이메일주소' v-model="loginParams.email" @keypress.enter="login" />
+                            <input type='password' placeholder='비밀번호' v-model="loginParams.password" @keypress.enter="login" />
+                            <div id='popup_form_signin_btn' class='popup_form_btn' @click.stop.prevent="login">로그인</div>
+                            <p class='message'>계정이 없으신가요? <span @click="showLoginPopup('SIGNUP')">회원가입</span></p>
                         </form>
                     </div>
                     <div class="popup_form_half">
-                        <p class="popup_form_title">Sign in with SNS</p>
+                        <p class="popup_form_title">SNS 로그인</p>
                         <div id='naver_id_login'></div>
                         <div id='facebook_login_button' @click="loginByFacebook">
                             <div id='facebook_login_logo_div'>
@@ -245,15 +245,15 @@
         .popup_form_close_div { width: 100%; margin-bottom: 20px; text-align: right; }
         .popup_form_close_img { width: 20px; margin-right: -25px; cursor: pointer; }
         .popup_form_half { width: 50%; vertical-align: top; display: inline-block; }
-        .popup_form_title { margin: 0 0 20px; font-size: 20pt; font-weight: 400; color: #F361A6; }
-        .popup_form_wrap input { width: 100%; padding: 15px; margin: 0 0 8px; font-size: 16pt; letter-spacing: 0.5px; background: #f2f2f2; outline: 0; border: 0; box-sizing: border-box; }
+        .popup_form_title { margin: 0 0 20px; font-size: 20px; font-weight: 400; color: #F361A6; }
+        .popup_form_wrap input { width: 100%; padding: 15px; margin: 0 0 8px; font-size: 16px; letter-spacing: 0.5px; background: #f2f2f2; outline: 0; border: 0; box-sizing: border-box; }
         .popup_form_wrap input:last-of-type { margin-bottom: 15px; }
-        .popup_form_btn { width: 100%; padding: 15px; font-size: 16pt; font-weight: 400; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.4px; background: #F361A6; outline: 0; border: 0; cursor: pointer; }
-        .popup_form_wrap .message { margin: 15px 0 0; font-size: 15pt; font-weight: 400; color: #b3b3b3; letter-spacing: 0.5px; }
+        .popup_form_btn { width: 100%; padding: 13px 0 15px; font-size: 16px; font-weight: 400; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.4px; background: #F361A6; outline: 0; border: 0; cursor: pointer; }
+        .popup_form_wrap .message { margin: 15px 0 0; font-size: 16px; font-weight: 400; color: #b3b3b3; letter-spacing: 0.5px; }
         .popup_form_wrap .message span { color: #F361A6; text-decoration: none; cursor: pointer; }
 
         #naver_id_login { margin-top: 15px; }
-        #facebook_login_button { width: 245px; height: 53px; margin: 8px auto 0; font-size: 16px; color: #FFFFFF; background-color: #4267b2; border-radius: 5px; cursor: pointer; }
+        #facebook_login_button { width: 245px; height: 53px; margin: 8px auto 0; font-size: 16px; color: #FFFFFF; background-color: #4267b2; border-radius: 4px; cursor: pointer; }
         #facebook_login_logo_div { width: 52px; height: 53px; display: inline-block; vertical-align: top; }
         #facebook_login_logo_img { width: 38px; margin: 5px 0 0 -8px; }
         #facebook_login_border { width: 2px; height: 53px; display: inline-block;

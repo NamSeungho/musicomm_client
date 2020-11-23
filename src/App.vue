@@ -44,30 +44,30 @@
         url('./fonts/nanum-pen-script/nanum-pen-script-v15-latin_korean-regular.svg#NanumPenScript') format('svg'); /* Legacy iOS */
     }
 
-    /*@font-face {*/
-    /*    font-family: 'tmoney';*/
-    /*    font-style: normal;*/
-    /*    font-weight: 400;*/
-    /*    src: url('./fonts/tmoney/TmoneyRoundWindRegular.otf') format('opentype'),*/
-    /*    url('./fonts/tmoney/TmoneyRoundWindRegular.ttf') format('truetype')*/
-    /*}*/
+    @font-face {
+        font-family: 'tmoney';
+        font-style: normal;
+        font-weight: 400;
+        src: url('./fonts/tmoney/TmoneyRoundWindRegular.otf') format('opentype'),
+        url('./fonts/tmoney/TmoneyRoundWindRegular.ttf') format('truetype')
+    }
 
-    /*@font-face {*/
-    /*    font-family: 'tmoney';*/
-    /*    font-style: normal;*/
-    /*    font-weight: 600;*/
-    /*    src: url('./fonts/tmoney/TmoneyRoundWindExtraBold.otf') format('opentype'),*/
-    /*    url('./fonts/tmoney/TmoneyRoundWindExtraBold.ttf') format('truetype')*/
-    /*}*/
+    @font-face {
+        font-family: 'tmoney';
+        font-style: normal;
+        font-weight: 600;
+        src: url('./fonts/tmoney/TmoneyRoundWindExtraBold.otf') format('opentype'),
+        url('./fonts/tmoney/TmoneyRoundWindExtraBold.ttf') format('truetype')
+    }
 
-    * { margin: 0; padding: 0; border: none; box-sizing: border-box; letter-spacing: 1px; }
+    * { margin: 0; padding: 0; border: none; box-sizing: border-box; letter-spacing: 0.5px; }
     html {
         font-family: 'tmoney', 'Nanum Pen Script', 'Roboto', sans-serif;
         -ms-text-size-adjust: 100%;
         -webkit-text-size-adjust: 100%;
     }
     html, body, #app, .application, .frame_container { height: 100%; }
-    input, textarea { font-family: 'Nanum Pen Script', 'Roboto', sans-serif; }
+    input, textarea { font-family: 'tmoney', 'Nanum Pen Script', 'Roboto', sans-serif; }
     input:focus, textarea:focus, button:focus, a:focus { outline: none; }
 
     a { text-decoration: none; }
@@ -78,8 +78,8 @@
     .popup_inner { width: 80%; max-width: 420px; margin: 0 auto; }
     .popup_inner_wrap { position: relative; padding: 45px 45px; font-size: 16px; font-weight: 400; text-align: center; background: #FFFFFF; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); z-index: 1; }
     .popup_top { width: 100%; padding-bottom: 30px; }
-    .popup_top_txt { width: 86%; margin: 0 auto; font-size: 23px; color: rgba(0, 0, 0, 0.5); }
-    .popup_btn_bottom { width: 100%; padding: 9px 0; font-size: 20px; color: #fff; background-color: #F361A6; cursor: pointer; }
+    .popup_top_txt { width: 86%; margin: 0 auto; font-size: 18px; color: rgba(0, 0, 0, 0.5); }
+    .popup_btn_bottom { width: 100%; padding: 13px 0 15px; font-size: 16px; color: #fff; background-color: #F361A6; cursor: pointer; }
 
     .loading_wrap { width: 100%; display: inline-block; vertical-align: middle; }
     .v-dot1 { display: inline-block; }

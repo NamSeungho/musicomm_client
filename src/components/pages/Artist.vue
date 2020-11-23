@@ -47,7 +47,7 @@
                             <span>가수</span>
                         </div>
                         <div class="music_list_item_release_div">
-                            <span>발배일</span>
+                            <span>발매일</span>
                         </div>
                         <div class="music_list_item_play_div">
                             <span>재생</span>
@@ -225,6 +225,12 @@
                     type: (isLike ? 1 : 2)
                 }).then(() => {
                     this.artistIsLike = isLike;
+
+                    if (isLike) {
+                        this.artistLikeCount++;
+                    } else {
+                        this.artistLikeCount--;
+                    }
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -279,33 +285,33 @@
             .container { width: 100%; padding: 30px 50px 0; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
             .ad_container { width: 100%; height: auto; text-align: center; padding: 10px 0 3px 0; }
 
-            #artist_title { font-size: 34px; margin-bottom: 15px; padding-left: 10px; display: block; }
+            #artist_title { font-size: 26px; margin-bottom: 15px; padding-left: 10px; display: block; }
 
             #artist_info_section {
                 & { padding: 0 10px 40px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
 
                 #artist_image { height: 270px; border-radius: 5px; vertical-align: top; }
                 #artist_profile_div { margin-left: 20px; display: inline-block; text-align: left; }
-                #artist_name { margin: 12px 0 20px; font-size: 34px; font-weight: 400; color: #FFFFFF; }
-                .artist_profile_div_title { width: 120px; line-height: 32px; display: inline-block; font-size: 22px; font-weight: 400; color: #DDD; }
-                .artist_profile_div_contents { line-height: 32px; display: inline-block; font-size: 22px; font-weight: 400; color: #FFF; }
-                #artist_profile_like_div { margin-top: 15px; }
+                #artist_name { margin: 12px 0 20px; font-size: 26px; font-weight: 400; color: #FFFFFF; }
+                .artist_profile_div_title { width: 120px; line-height: 28px; display: inline-block; font-size: 15px; font-weight: 400; color: #DDD; }
+                .artist_profile_div_contents { line-height: 28px; display: inline-block; font-size: 15px; font-weight: 400; color: #FFF; }
+                #artist_profile_like_div { margin-top: 20px; }
                 #artist_likes_img {width: 24px; padding: 0; margin-top: 4px; vertical-align: top; cursor: pointer; }
             }
 
             #artist_music_section {
                 & { padding: 0 10px 25px; }
-                span, a { color: #FFFFFF; line-height: 48px; font-size: 22px; font-weight: 400; display: inline-block; vertical-align: top; }
+                span, a { color: #FFFFFF; line-height: 48px; font-size: 15px; font-weight: 400; display: inline-block; vertical-align: top; }
 
-                #artist_music_title { margin-bottom: 15px; font-size: 34px; font-weight: 400; color: #FFFFFF; }
+                #artist_music_title { margin-bottom: 15px; font-size: 26px; font-weight: 400; color: #FFFFFF; }
 
                 .music_list_header_div { border-top: 2px solid #FFFFFF; border-bottom: 1px solid #FFFFFF; }
                 .music_list_header_div > div { vertical-align: top; }
                 .music_list_header_div > div > .music_list_item_music_name { margin-left: 184px; }
 
                 .music_list_item_music_name_div { width: 45%; display: inline-block; margin: 0; }
-                .music_list_item_artist_div { width: 25%; display: inline-block; text-align: left; }
-                .music_list_item_release_div { width: 14%; display: inline-block; text-align: center; }
+                .music_list_item_artist_div { width: 24%; display: inline-block; text-align: left; }
+                .music_list_item_release_div { width: 15%; display: inline-block; text-align: center; }
                 .music_list_item_play_div { width: 8%; display: inline-block; text-align: center; }
                 .music_list_item_fav_div { width: 8%; display: inline-block; text-align: center; }
                 .music_list_item_thumbnail_div { position: relative; width: 160px; margin: 10px 0 0 10px; display: inline-block; text-align: center; vertical-align: top; }
@@ -328,7 +334,7 @@
                     .music_video_list_item_thumbnail_cover.active { opacity: 1; }
                     .music_video_list_item_thumbnail_cover_img { width: 28px; position: absolute; bottom: 8px; right: 8px; }
 
-                    .music_list_item_music_name { width: calc(100% - 194px); margin-left: 14px; }
+                    .music_list_item_music_name { width: calc(100% - 194px); margin-left: 16px; }
                     .music_list_item_music_name a { max-width: 100%; margin-top: 44px; line-height: 1; display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; cursor: pointer; }
                     .music_list_item_music_name a:hover { text-decoration: underline; }
                     .music_list_item_artist { width: 100%; }
@@ -339,13 +345,13 @@
                     .music_list_item_fav { width: 45px; padding: 11px; margin-top: 32px; vertical-align: top; cursor: pointer; }
                     .music_list_item_play { width: 45px; padding: 13px; margin-top: 32px; vertical-align: top; cursor: pointer; }
 
-                    .music_item_arrow_div { display: inline-block; vertical-align: top; line-height: 12px; margin: 48px 0 0 8px; }
+                    .music_item_arrow_div { display: inline-block; vertical-align: top; line-height: 12px; margin: 46px 0 0 8px; }
                     .music_item_arrow { width: 12px; vertical-align: top; cursor: pointer; }
 
                     .music_item_singer_div { position: absolute; width: 160px; margin: 3px 0 0 -70px; padding: 2px 15px; border: 1px solid #FFF; background: #444; z-index: 1; }
-                    .music_item_singer_item { position: relative; display: inline-block; margin: 0; padding: 0; cursor: pointer; line-height: 25px; vertical-align: top; font-size: 20px; color: #FFFFFF !important; transition: initial; }
+                    .music_item_singer_item { position: relative; display: inline-block; margin: 0; padding: 0; cursor: pointer; line-height: 22px; vertical-align: top; font-size: 15px; color: #FFFFFF !important; transition: initial; }
                     .music_item_singer_item:hover { text-decoration: underline; }
-                    .music_item_singer_item span { line-height: 25px; }
+                    .music_item_singer_item span { line-height: 22px; }
                 }
             }
         }

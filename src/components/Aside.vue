@@ -61,8 +61,9 @@
                 </div>
                 <div id="aside_lyrics_wrap" v-bind:class="{ on : !chattingMode }">
                     <div id="aside_lyrics_container" ref="lyricsContainer">
-                        <p id="aside_lyrics_title" class="empty" v-if="lyricsTitle === ''">재생중인 음악이 없습니다</p>
-                        <p id="aside_lyrics_title" v-else>{{ lyricsTitle }}</p>
+                        <p class="aside_lyrics_title empty" v-if="lyricsTitle === null">재생중인 음악이 없습니다</p>
+                        <p class="aside_lyrics_title empty" v-else-if="lyricsTitle === ''">가사가 지원되지 않는 음악입니다</p>
+                        <p class="aside_lyrics_title" v-else>{{ lyricsTitle }}</p>
                         <div id="aside_lyrics_contents_wrap" v-html="lyricsContents"></div>
                     </div>
                 </div>
@@ -106,7 +107,7 @@
                 isVolumeBarHover: false,
                 musicTitle: '',
                 musicTime: '0:00 / 0:00',
-                lyricsTitle: '',
+                lyricsTitle: null,
                 lyricsContents: '',
                 chattingMode: false,
                 chattingList: [],
@@ -555,9 +556,11 @@
         &.on { display: block; }
 
         #aside_lyrics_container { position: relative; width: 100%; height: 100%; overflow-y: auto; }
-        #aside_lyrics_title { margin: 0 0 19px 0; padding: 0; font-size: 24px; font-weight: 500; line-height: 23px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; color: #333333; }
-        #aside_lyrics_title.empty { text-align: center; margin-top: 30px; }
-        .aside_lyrics_contents { margin: 0; font-size: 22px; font-weight: 400; line-height: 27px; color: #666666; }
+        .aside_lyrics_title {
+            & { margin: 0 0 19px 0; padding: 0; font-size: 15px; font-weight: 500; line-height: 23px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; color: #333333; }
+            &.empty { text-align: center; margin-top: 30px; }
+        }
+        .aside_lyrics_contents { margin: 0; font-size: 15px; font-weight: 400; line-height: 27px; color: #666666; }
         .aside_lyrics_nbsp_contents { margin: 0; font-size: 15px; line-height: 1; }
     }
 </style>
@@ -572,7 +575,7 @@
             & { position: relative; width: 450px; }
 
             #player { width: 100%; height: 253.125px; background-color: #000; display: block; line-height: 253.125px; text-align: center; color: #FFFFFF; font-weight: 400;}
-            #player > span { display: block; padding-top: 30px; font-size: 25px; }
+            #player > span { display: block; padding-top: 30px; font-size: 18px; }
 
             #player_control_wrap {
                 & { position: relative; width: 100%; height: 120px; display: block; z-index: 90; opacity: 1;
@@ -590,8 +593,8 @@
                 &.on > div { opacity: 1; height: auto; }
                 &.large { position: fixed; bottom: 0; width: 100%; height: 120px; z-index: 110;}
 
-                #player_control_music_title { width: 100%; height: 36px; margin: 0; padding: 10px 5% 4px; color: #FFFFFF; font-size: 23px; font-weight: 400; line-height: 1; display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
-                #player_control_music_time { margin: 0; padding: 0 5% 9px 0; text-align: right; color: #FFFFFF; font-size: 21px; font-weight: 400; line-height: 1; letter-spacing: 1px; }
+                #player_control_music_title { width: 100%; height: 36px; margin: 0; padding: 10px 5% 4px; color: #FFFFFF; font-size: 15px; font-weight: 400; line-height: 1; display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+                #player_control_music_time { margin: 0; padding: 0 5% 9px 0; text-align: right; color: #FFFFFF; font-size: 14px; font-weight: 400; line-height: 1; letter-spacing: 1px; }
                 #player_control_progress_bar { width: 90%; height: 8px; margin: 0 auto; background-color: #FFFFFF; border-radius: 4px; cursor: pointer; }
                 #player_control_progress_bar_active { width: 0%; height: 8px; background-color: #F361DC; border-radius: 4px; cursor: pointer; }
                 #player_control_play_btn { margin-left: 5%; margin-top: 12px; height: 23px; cursor: pointer; }
@@ -610,7 +613,7 @@
             & { position: relative; width: 410px; height: calc(100% - 373.125px); margin: 0 auto; background-color: rgba(0,0,0,0); }
 
             #aside_partition {
-                & { width: 100%; display: inline-block; text-align: center; margin: 14px 0; font-size: 22px; color: #888888; font-weight: 400; position: relative; height: 23px; }
+                & { width: 100%; display: inline-block; text-align: center; margin: 14px 0; font-size: 15px; color: #888888; font-weight: 400; position: relative; height: 23px; }
                 &::after { content: ''; width: 100%; height: 1px; position: absolute; top: 50%; left: 0; margin-top: -0.5px; background-color: #AAAAAA; }
 
                 #aside_partition_text_wrap { position: relative; padding: 0 13px; box-sizing: border-box; background-color: #fff; display: inline-block; z-index: 1; }
@@ -658,6 +661,42 @@
                         border-radius: 10px;
                     }
                     #aside_chatting_send_img { width: 25px; margin-left: 1px; }
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 1440px) {
+        #frame_aside {
+            & {
+                width: 410px;
+            }
+
+            #player_container {
+                & {
+                    width: 410px;
+                }
+
+                #player_control_wrap {
+                    #player_control_play_btn { margin-top: 12px; height: 21px; }
+                    #player_control_prev_btn { margin-left: 12px; margin-top: 12px; height: 21px; }
+                    #player_control_next_btn { margin-left: 12px; margin-top: 12px; height: 21px; }
+                    #player_control_large_btn { margin-right: 5%; margin-top: 12px; height: 21px; }
+                    #player_control_repeat_btn { margin-left: 26px; margin-top: 12px; height: 21px; }
+                    #player_control_shuffle_btn { margin-left: 12px; margin-top: 12px; height: 21px; }
+                    #player_control_volume_btn { margin-right: 12px; margin-left: 26px; margin-top: 12px; height: 21px; }
+                }
+            }
+
+            #aside_container {
+                & {
+                    width: 370px;
+                }
+
+                #aside_contents_wrap {
+                    & {
+                        width: 370px;
+                    }
                 }
             }
         }

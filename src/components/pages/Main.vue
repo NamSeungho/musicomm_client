@@ -337,12 +337,12 @@
             & { position: relative; width: 100%; color: white; background: repeating-linear-gradient(140deg,#f361a6, #6b4d71, #f361a6 2000px); }
             .container { width: 100%; padding: 30px 50px 20px; margin: 0 auto; }
 
-            #latest_music_title { font-size: 34px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
-            #latest_music_subtitle { font-size: 24px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
+            #latest_music_title { font-size: 26px; margin: 0 0 8px 0; display: block; padding-left: 10px; }
+            #latest_music_subtitle { font-size: 18px; margin: 0 0 12px 0; display: inline-block; vertical-align: top; padding-left: 10px; }
             #latest_music_more_a {
-                & { display: inline-block; color: white; float: right; margin-top: 6px; padding-right: 10px; font-size: 13pt; font-weight: 400; text-decoration: none; cursor: pointer; line-height: 1; }
-                span { font-size: 14pt; vertical-align: top; }
-                #latest_music_more_span { font-size: 16pt; margin-top: 0; }
+                & { display: inline-block; color: white; float: right; margin-top: 6px; padding-right: 10px; font-weight: 400; text-decoration: none; cursor: pointer; line-height: 1; }
+                span { font-size: 18px; vertical-align: top; }
+                /*#latest_music_more_span { font-size: 16pt; margin-top: 0; }*/
                 &:hover #latest_music_more_span { text-decoration: underline; }
             }
         }
@@ -351,11 +351,11 @@
             & { position: relative; background: #FFFFFF; }
             .container { padding: 2.2em 50px; }
 
-            #ranked_music_title { font-size: 34px; margin: 0 0 8px 0; padding-left: 10px; display: block; color: #6f787f; }
-            #ranked_music_subtitle { font-size: 24px; margin: 0 0 12px 0; padding-left: 10px; display: inline-block; color: #6f787f; }
+            #ranked_music_title { font-size: 26px; margin: 0 0 8px 0; padding-left: 10px; display: block; color: #6f787f; }
+            #ranked_music_subtitle { font-size: 18px; margin: 0 0 12px 0; padding-left: 10px; display: inline-block; color: #6f787f; }
             .music_list_wrap {
                 & { padding-top: 0; }
-                span, a { color: #6f787f; line-height: 48px; font-size: 22px; font-weight: 400; display: inline-block; vertical-align: top; }
+                span, a { color: #6f787f; line-height: 48px; font-size: 15px; font-weight: 400; display: inline-block; vertical-align: top; }
 
                 .music_list_header_div { border-top: 2px solid #AAAAAA; border-bottom: 1px solid #AAAAAA; }
                 .music_list_header_div > div { vertical-align: top; }
@@ -402,18 +402,18 @@
         #guide_container {
             & { background: #f1faff; padding: 2.2em 50px; }
 
-            #service_introduction_title { font-size: 34px; margin: 0 0 8px 0; padding-left: 10px; display: block; color: #6f787f; }
-            #service_introduction_subtitle { font-size: 24px; margin: 0 0 12px 0; padding-left: 10px; display: inline-block; color: #6f787f; }
+            #service_introduction_title { font-size: 26px; margin: 0 0 8px 0; padding-left: 10px; display: block; color: #6f787f; }
+            #service_introduction_subtitle { font-size: 18px; margin: 0 0 12px 0; padding-left: 10px; display: inline-block; color: #6f787f; }
             .service_introduction_item { display: block; margin-top: 25px; }
             .service_introduction_item:first-child { margin-top: 0; }
             .service_introduction_item.left { text-align: left; }
             .service_introduction_item.right { text-align: right; }
             .service_introduction_item_img { width: 400px; }
-            .service_introduction_item .service_introduction_item_text_wrap { display: inline-block; vertical-align: top; line-height: 1.3; }
+            .service_introduction_item .service_introduction_item_text_wrap { width: calc(100% - 420px); display: inline-block; vertical-align: top; line-height: 1.3; }
             .service_introduction_item.left .service_introduction_item_text_wrap { margin-left: 15px; }
             .service_introduction_item.right .service_introduction_item_text_wrap { margin-right: 15px; }
-            .service_introduction_item_text { font-size: 21pt; font-weight: 400; color: #6f787f; padding-top: 5px; display: block; }
-            .service_introduction_item_subtext { font-size: 17pt; font-weight: 400; color: #6f787f; display: block; }
+            .service_introduction_item_text { font-size: 22px; font-weight: 400; color: #6f787f; padding-top: 5px; display: block; }
+            .service_introduction_item_subtext { font-size: 15px; font-weight: 400; color: #6f787f; display: block; }
         }
 
         #footer_container {
@@ -426,19 +426,19 @@
                 & > div { width: 41.666%; padding: 0 15px; display: inline-block; vertical-align: top; }
 
                 .left_container { margin-left: 8.333%; }
-                .footer_title { position: relative; margin-bottom: 45px; padding-bottom: 12px; font-size: 30px; font-weight: 400; color: #fff; line-height: 1.5; }
+                .footer_title { position: relative; margin-bottom: 20px; padding-bottom: 12px; font-size: 22px; font-weight: 400; color: #fff; line-height: 1.5; }
                 .footer_title:after { position: absolute; content: ''; width: 35px; height: 2px; bottom: 0; left: 0; display: block; background: #1fb5f6; }
-                .footer_subtitle { font-size: 24px; margin-bottom: 35px; color: #fff; line-height: 1.5; }
+                .footer_subtitle { font-size: 15px; margin-bottom: 20px; color: #fff; line-height: 1.5; }
                 .footer_info { margin-bottom: 60px; }
-                .footer_info li { position: relative; margin-bottom: 12px; line-height: 1.5; font-size: 24px; color: #fff; list-style: none; }
-                .footer_info img { height: 22px; margin: 7px 12px 0 0; vertical-align: top; }
-                .footer_copyright { position: relative; padding-top: 20px; font-size: 24px; color: #fff; }
+                .footer_info li { position: relative; margin-bottom: 12px; line-height: 22px; font-size: 15px; color: #fff; list-style: none; }
+                .footer_info img { height: 22px; margin: 1px 12px 0 0; vertical-align: top; }
+                .footer_copyright { position: relative; padding-top: 20px; font-size: 15px; color: #fff; }
                 .footer_copyright:after { position: absolute; content: ''; width: 35px; height: 2px; top: 0; left: 0; display: block; background: #1fb5f6; }
-                .footer_send_button {padding: 2px 20px; font-size: 24px; color: #fff; text-align: center; vertical-align: middle; line-height: 1.42857; background: #F361A6; border-radius: 4px; float: right; cursor: pointer; }
+                .footer_send_button { width: 150px; padding: 9px 0 11px; font-size: 16px; color: #fff; text-align: center; vertical-align: middle; line-height: 1.42857; background: #F361A6; border-radius: 4px; float: right; cursor: pointer; }
 
                 .footer_input_wrap {
                     & { margin-bottom: 15px; }
-                    & input, & textarea { width: 100%; height: 42px; padding: 10px 20px; line-height: 1.5; display: block; font-size: 24px; color: #fff; letter-spacing: 1px; background: #485b71; border-radius: 4px; border: none; box-shadow: none; }
+                    & input, & textarea { width: 100%; height: 42px; padding: 10px 15px; line-height: 1.5; display: block; font-size: 15px; color: #fff; letter-spacing: 1px; background: #485b71; border-radius: 4px; border: none; box-shadow: none; }
                     & textarea { height: initial; resize: none; }
                     & input::placeholder, & textarea::placeholder,
                     & input::-webkit-input-placeholder, & textarea::-webkit-input-placeholder,
@@ -447,6 +447,12 @@
                     & input:-ms-input-placeholder,& textarea:-ms-input-placeholder { color: rgba(255, 255, 255, 0.5); }
                 }
             }
+        }
+    }
+
+    @media only screen and (max-width: 1440px) {
+        .main_template {
+            /* */
         }
     }
 </style>

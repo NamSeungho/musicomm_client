@@ -19,7 +19,8 @@
                         </div>
                     </div>
                 </div>
-                <span class="music_video_list_item_release_date">{{ music.release.substr(0,4) }}.{{ music.release.substr(4,2) }}.{{ music.release.substr(6,2) }}</span>
+                <span v-if="music.release !== undefined" class="music_video_list_item_release_date">{{ music.release.substr(0,4) }}.{{ music.release.substr(4,2) }}.{{ music.release.substr(6,2) }}</span>
+                <span v-else-if="music.date !== undefined" class="music_video_list_item_release_date">{{ music.date.substr(0,4) }}.{{ music.date.substr(4,2) }}.{{ music.date.substr(6,2) }} 감상</span>
             </div>
             <div class="music_video_list_item_fav_div">
                 <img v-if="music.isFavorite" class="music_video_list_item_fav_img on" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="$emit('favorite', music.video, false)" />
@@ -46,7 +47,7 @@
 <style scoped lang="scss">
     .music_video_list_item {
         & { width: 25%; padding: 0 7px 30px; display: inline-block; vertical-align: top; }
-        &.medium { width: 33%; }
+        &.medium { width: 33.33%; }
 
         .music_video_list_item_wrap {
             & { position: relative; font-size: 12pt; border-bottom: none; display: block; text-align: left; border-radius: 6px; background-color: rgba(0, 0, 0, 0.25); outline: 0;
@@ -69,12 +70,12 @@
 
             .music_video_list_item_title_div { width: calc(100% - 44px); position: relative; display: inline-block; padding: 5px 15px 7px; letter-spacing: 0.4px; line-height: 1; }
             .music_video_list_item_title_div > span { display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 100%; }
-            .music_video_list_item_music_name { display: block; font-weight: 400; font-size: 23px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; cursor: pointer; line-height: 1.4; max-width: 100%; color: #FFFFFF !important; }
+            .music_video_list_item_music_name { display: block; font-weight: 400; padding-bottom: 2px; font-size: 18px; line-height: 32px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; cursor: pointer; max-width: 100%; color: #FFFFFF !important; }
             .music_video_list_item_music_name:hover { text-decoration: underline; }
-            .music_video_list_item_artist { display: inline-block; font-weight: 400; font-size: 20px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 1; cursor: pointer; max-width: 100%; color: #FFFFFF !important; }
+            .music_video_list_item_artist { display: inline-block; font-weight: 400; font-size: 14px; line-height: 18px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; cursor: pointer; max-width: 100%; color: #FFFFFF !important; }
             .music_video_list_item_artist:hover { text-decoration: underline; }
-            .music_video_list_item_release_date { display: block; font-size: 20px; line-height: 1; }
-            .music_video_list_item_fav_div { display: inline-block; padding: 7px 10px 7px 0; letter-spacing: 0.4px; vertical-align: top; float: right; line-height: 4; }
+            .music_video_list_item_release_date { display: block; padding-bottom: 2px; font-size: 14px; line-height: 18px; }
+            .music_video_list_item_fav_div { display: inline-block; padding: 10px 10px 0 0; letter-spacing: 0.4px; vertical-align: top; float: right; line-height: 4; }
             .music_video_list_item_fav_img { width: 32px; padding: 4px; margin-top: -4px; vertical-align: middle; cursor: pointer; }
             .music_list_item_play_div { display: inline-block; padding: 7px 0 7px 0; letter-spacing: 0.4px; vertical-align: top; float: right; line-height: 3; }
             .music_list_item_play { width: 32px; padding: 5px; margin-top: -4px; }
@@ -83,7 +84,7 @@
             .music_item_arrow { width: 12px; margin: 3px 0 0 5px; vertical-align: top; cursor: pointer; }
 
             .music_item_singer_div { position: absolute; width: 160px; margin: 3px 0 0 -70px; padding: 2px 15px; border: 1px solid #FFF; background: #444; z-index: 1; }
-            .music_item_singer_item { position: relative; display: inline-block; margin: 0; padding: 0; cursor: pointer; line-height: 25px; vertical-align: top; font-size: 20px; color: #FFFFFF !important; transition: initial; }
+            .music_item_singer_item { position: relative; display: inline-block; margin: 0; padding: 0; cursor: pointer; line-height: 22px; vertical-align: top; font-size: 15px; color: #FFFFFF !important; transition: initial; }
             .music_item_singer_item:hover { text-decoration: underline; }
         }
     }

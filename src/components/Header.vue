@@ -63,6 +63,9 @@
             },
             nickname () {
                 return this.$store.getters.nickname;
+            },
+            search () {
+                return this.debounce(this.requestSearchData, 200);
             }
         },
         watch: {
@@ -124,76 +127,7 @@
                     return;
                 }
 
-                let tempSearchArtist = {
-                    id: '',
-                    title: '',
-                    type: '',
-                    debut: '',
-                    isActive: false
-                };
-                let tempSearchMusic = [];
-
-                if (event.target.value === '') {
-                    this.searchArtist = tempSearchArtist;
-                    this.searchMusic = tempSearchMusic;
-
-                    return;
-                }
-
-                this.searchTimeStamp = (new Date()).getTime();
-                this.axios.post(this.$store.getters.serverUrl + 'api/search', {
-                    q: event.target.value,
-                    clienttime: this.searchTimeStamp
-                }).then((response) => {
-                    if (response.data.clienttime < this.searchTimeStamp) {
-                        return;
-                    }
-
-                    let tempSearchArtist = {
-                        id: '',
-                        title: '',
-                        type: '',
-                        debut: '',
-                        isActive: false
-                    };
-                    let tempSearchMusic = [];
-
-                    if (event.target.value === '' || (response.data.artistList.length === 0 && response.data.musicList.length === 0)) {
-                        this.searchArtist = tempSearchArtist;
-                        this.searchMusic = tempSearchMusic;
-                        return;
-                    }
-
-                    if (response.data.artistList.length > 0) {
-                        tempSearchArtist.id = response.data.artistList[0]._id;
-                        tempSearchArtist.title = response.data.artistList[0].title + (response.data.artistList[0].title_en === '' ? '' : ' (' + response.data.artistList[0].title_en + ')');
-                        if (response.data.artistList[0].type === 1) {
-                            tempSearchArtist.type = '여성 그룹';
-                        } else if (response.data.artistList[0].type === 2) {
-                            tempSearchArtist.type = '남성 그룹';
-                        } else if (response.data.artistList[0].type === 3) {
-                            tempSearchArtist.type = '혼성 그룹';
-                        } else if (response.data.artistList[0].type === 4) {
-                            tempSearchArtist.type = '여성 솔로';
-                        } else if (response.data.artistList[0].type === 5) {
-                            tempSearchArtist.type = '남성 솔로';
-                        }
-                        tempSearchArtist.debut = response.data.artistList[0].debut;
-                        tempSearchArtist.isActive = false;
-                    }
-                    this.searchArtist = tempSearchArtist;
-
-                    response.data.musicList.forEach(music => {
-                        tempSearchMusic.push({
-                            id: music.video,
-                            title: music.title,
-                            isActive: false
-                        })
-                    });
-                    this.searchMusic = tempSearchMusic;
-                }).catch((error) => {
-                    console.log(error);
-                });
+                this.search(event.target.value);
             },
             searchUpArrow: function () {
                 if (this.searchArtist.id === '') {
@@ -287,6 +221,73 @@
                     }
                 }
             },
+            requestSearchData: function (keyword) {
+                if (keyword === '') {
+                    this.clearSearchResult();
+
+                    return;
+                }
+
+                this.searchTimeStamp = (new Date()).getTime();
+                this.axios.post(this.$store.getters.serverUrl + 'api/search', {
+                    q: keyword,
+                    clienttime: this.searchTimeStamp
+                }).then((response) => {
+                    if (response.data.clienttime < this.searchTimeStamp) {
+                        return;
+                    }
+
+                    if (keyword === '' || (response.data.artistList.length === 0 && response.data.musicList.length === 0)) {
+                        this.clearSearchResult();
+
+                        return;
+                    }
+
+                    const tempSearchArtist = {};
+                    const tempSearchMusic = [];
+
+                    if (response.data.artistList.length > 0) {
+                        tempSearchArtist.id = response.data.artistList[0]._id;
+                        tempSearchArtist.title = response.data.artistList[0].title + (response.data.artistList[0].title_en === '' ? '' : ' (' + response.data.artistList[0].title_en + ')');
+                        if (response.data.artistList[0].type === 1) {
+                            tempSearchArtist.type = '여성 그룹';
+                        } else if (response.data.artistList[0].type === 2) {
+                            tempSearchArtist.type = '남성 그룹';
+                        } else if (response.data.artistList[0].type === 3) {
+                            tempSearchArtist.type = '혼성 그룹';
+                        } else if (response.data.artistList[0].type === 4) {
+                            tempSearchArtist.type = '여성 솔로';
+                        } else if (response.data.artistList[0].type === 5) {
+                            tempSearchArtist.type = '남성 솔로';
+                        }
+                        tempSearchArtist.debut = response.data.artistList[0].debut;
+                        tempSearchArtist.isActive = false;
+                    }
+
+                    response.data.musicList.forEach(music => {
+                        tempSearchMusic.push({
+                            id: music.video,
+                            title: music.title,
+                            isActive: false
+                        })
+                    });
+
+                    this.searchArtist = tempSearchArtist;
+                    this.searchMusic = tempSearchMusic;
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            clearSearchResult: function () {
+                this.searchArtist = {
+                    id: '',
+                    title: '',
+                    type: '',
+                    debut: '',
+                    isActive: false
+                };
+                this.searchMusic = [];
+            },
             showLoginPopup: function (type) {
                 this.$store.dispatch('setSignInPopupType', type);
                 this.$store.dispatch('setSignInPopupStatus', 'SHOW');
@@ -295,6 +296,20 @@
                 setTimeout(() => {
                     this.searchFocus = false;
                 }, 200);
+            },
+            debounce: function (func, wait) {
+                let timeout;
+
+                return function executedFunction (...args) {
+                    const later = () => {
+                        timeout = null;
+
+                        func(...args);
+                    };
+
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
             }
         }
     }
@@ -307,39 +322,22 @@
         /** { height: 55px; line-height: 55px; }*/
 
         .header_logo {
-            & { float: left; display: block; font-size: 34px; font-weight: 700; color: #535659; letter-spacing: 2px; line-height: 55px; }
-            span { color: #F361A6; letter-spacing: 3px; }
+            & { float: left; display: block; font-size: 26px; font-weight: 700; color: #535659; letter-spacing: 0; line-height: 55px; }
+            span { color: #F361A6; letter-spacing: 0; }
         }
 
         .header_menu_container {
             & { float: right; list-style: none; line-height: 55px; }
             li {
                 & { float: left; padding: 0 15px; cursor: pointer; }
-                /*a { position: relative; padding: 0 15px; font-size: 22px; font-weight: 400; color: rgba(0, 0, 0, 0.5);*/
-                /*    -webkit-transition: all 0.3s ease-in-out 0s;*/
-                /*    -moz-transition: all 0.3s ease-in-out 0s;*/
-                /*    -o-transition: all 0.3s ease-in-out 0s;*/
-                /*    transition: all 0.3s ease-in-out 0s; }*/
-                /*a:hover { color: #000000; }*/
-                /*a span { position: relative; }*/
-                /*&.active a span:before { content: ''; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0; background-color: #F361A6; visibility: visible;*/
-                /*    -webkit-transform: scaleX(1);*/
-                /*    -moz-transform: scaleX(1);*/
-                /*    -o-transform: scaleX(1);*/
-                /*    transform: scaleX(1);*/
-                /*    -webkit-transition: all 0.3s ease-in-out 0s;*/
-                /*    -moz-transition: all 0.3s ease-in-out 0s;*/
-                /*    -o-transition: all 0.3s ease-in-out 0s;*/
-                /*    transition: all 0.3s ease-in-out 0s; }*/
-
 
                 &:hover span { color: #000000; }
-                span { position: relative; position: relative; font-size: 22px; font-weight: 400; color: rgba(0, 0, 0, 0.5);
+                span { position: relative; position: relative; font-size: 16px; font-weight: 400; color: rgba(0, 0, 0, 0.5);
                     -webkit-transition: all 0.3s ease-in-out 0s;
                     -moz-transition: all 0.3s ease-in-out 0s;
                     -o-transition: all 0.3s ease-in-out 0s;
                     transition: all 0.3s ease-in-out 0s; }
-                &.active span:before { content: ''; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0; background-color: #F361A6; visibility: visible;
+                &.active span:before { content: ''; position: absolute; width: calc(100% + 10px); height: 2px; bottom: -4px; left: -5px; background-color: #F361A6; visibility: visible;
                     -webkit-transform: scaleX(1);
                     -moz-transform: scaleX(1);
                     -o-transform: scaleX(1);
@@ -357,7 +355,7 @@
                     -moz-transition: all 0.3s ease-in-out 0s;
                     -o-transition: all 0.3s ease-in-out 0s;
                     transition: all 0.3s ease-in-out 0s; }
-                &.sign span { color: #F361A6; }
+                &.sign span { display: block; height: 31px; line-height: 31px; color: #F361A6; }
                 &.sign:hover { background-color: #F361A6; }
                 &.sign:hover span { color: #FFFFFF; }
                 &.sign_up { margin-left: 20px; background-color: #F361A6; }
@@ -372,7 +370,7 @@
         #navbar_search_wrap { position: relative; width: 350px; height: 55px; margin-right: 50px; padding: 7.5px 0; float: right; text-align: left; }
         #frame_search_input_wrap { border: 2px solid #F361A6; height: 40px; border-radius: 3px; }
         #frame_search_input_wrap > img { width: 36px; height: 36px; padding: 8px; vertical-align: top; cursor: pointer; }
-        #frame_search_input { width: 308px; height: 36px; margin-left: 1px; padding-left: 7px; border: none; vertical-align: top; font-size: 21px; font-weight: 400; }
+        #frame_search_input { width: 308px; height: 36px; margin-left: 1px; padding-left: 7px; border: none; vertical-align: top; font-size: 15px; font-weight: 400; }
 
         /* header search bar */
         #frame_search_result_wrap { position: absolute; width: calc(100% - 2px); top: 48px; margin-left: 1px; background-color: #ffffff; border: 1px solid rgba(0,0,0,0.2); border-radius: 3px; }
@@ -382,15 +380,30 @@
         #frame_search_result_artist_item.border_bottom { border-bottom: 1px solid rgba(0,0,0,0.2); }
         #frame_search_result_artist_image { width: 90px; height: 60px; vertical-align: top; }
         #frame_search_result_artist_contents { width: calc(100% - 90px); display: inline-block; vertical-align: top; }
-        #frame_search_result_artist_title { padding: 8px 0 5px 10px; margin: 0; font-size: 24px; font-weight: 400; color: #000000; transition: 0.5s; line-height: 1; }
+        #frame_search_result_artist_title { padding: 11px 0 7px 10px; margin: 0; font-size: 16px; font-weight: 400; color: #000000; transition: 0.5s; line-height: 1; }
         #frame_search_result_artist_item:hover #frame_search_result_artist_title { color: #F361A6; }
-        #frame_search_result_artist_description { padding: 0 0 0 10px; margin: 0; font-size: 17px; font-weight: 400; color: rgba(0, 0, 0, 0.5); line-height: 1; }
+        #frame_search_result_artist_description { padding: 0 0 0 10px; margin: 0; font-size: 13px; font-weight: 400; color: rgba(0, 0, 0, 0.5); line-height: 1; }
 
-        .frame_search_result_music_item { padding: 7px 0 7px 9px; margin: 0; font-size: 20px; font-weight: 400; cursor: pointer; color: rgba(0, 0, 0, 0.5); display: block; line-height: 1; }
+        .frame_search_result_music_item { padding: 7px 0 7px 9px; margin: 0; font-size: 14px; font-weight: 400; cursor: pointer; color: rgba(0, 0, 0, 0.5); display: block; line-height: 1; }
         .frame_search_result_music_item:hover { background-color: #ededed; text-decoration: none; }
         .frame_search_result_music_item.active { background-color: #ededed; color: #F361A6; outline: none; text-decoration: none; }
         #frame_search_result_artist_item.active { background-color: #ededed; text-decoration: none; }
         #frame_search_result_artist_item.active #frame_search_result_artist_title { color: #F361A6; text-decoration: none; }
+    }
+
+    @media only screen and (max-width: 1440px) {
+        .header {
+            .header_logo {
+                & { font-size: 25px; }
+            }
+
+            .header_menu_container {
+                li {
+                    span { font-size: 15px; }
+                }
+            }
+        }
+
     }
 </style>
 

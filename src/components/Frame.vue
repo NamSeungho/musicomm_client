@@ -73,4 +73,8 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .frame_container { padding: 55px 0 0; width: calc(100% - 450px); height: 100%; min-height: 100%; }
+
+    @media only screen and (max-width: 1440px) {
+        .frame_container { width: calc(100% - 410px); }
+    }
 </style>

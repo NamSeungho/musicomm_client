@@ -1,83 +1,84 @@
 <template>
     <div id="music_template" ref="musicTemplate">
         <div id="music_container">
-            <p id="music_title">음악 정보</p>
+            <div class="container">
+                <p id="music_title">음악 정보</p>
 
-            <section id="music_info_section" v-if="isLoaded">
-                <div id="music_info_player_wrap" ref="playerContainer">
-                    <div id="music_info_player"></div>
-                </div>
-
-                <div id="music_info_wrap">
-                    <div>
-                        <span class="music_info_title">곡 명</span>
-                        <span class="music_info_contents">{{ musicTitle }}</span>
+                <section id="music_info_section" v-if="isLoaded">
+                    <div id="music_info_player_wrap" ref="playerContainer">
+                        <div id="music_info_player"></div>
                     </div>
-                    <div>
-                        <span class="music_info_title">아티스트</span>
-                        <span class="music_info_contents">
-                            <span v-for="(singer, index) in musicSinger" :key="index">
-                                <span v-if="index !== 0">, </span>
-                                <span class="music_info_artist" v-if="singer._id === ''">{{ singer.name }}</span>
-                                <router-link :to="'/artist/' + singer._id" class="music_info_artist" v-else>{{ singer.name }}</router-link>
+
+                    <div id="music_info_wrap">
+                        <div>
+                            <span class="music_info_title">곡 명</span>
+                            <span class="music_info_contents">{{ musicTitle }}</span>
+                        </div>
+                        <div>
+                            <span class="music_info_title">아티스트</span>
+                            <span class="music_info_contents">
+                                <span v-for="(singer, index) in musicSinger" :key="index">
+                                    <span v-if="index !== 0">, </span>
+                                    <span class="music_info_artist" v-if="singer._id === ''">{{ singer.name }}</span>
+                                    <router-link :to="'/artist/' + singer._id" class="music_info_artist" v-else>{{ singer.name }}</router-link>
+                                </span>
                             </span>
-                        </span>
-                    </div>
-                    <div>
-                        <span class="music_info_title">조회수</span>
-                        <span class="music_info_contents">{{ musicPlayCount }} 회</span>
-                    </div>
-                    <div>
-                        <span class="music_info_title">발매일</span>
-                        <span class="music_info_contents">{{ musicRelease.substr(0, 4) }}. {{ musicRelease.substr(4, 2) }}. {{ musicRelease.substr(6, 2) }} 발매</span>
-                    </div>
-                    <div>
-                        <span class="music_info_title">즐겨찾기</span>
-                        <img class="music_info_fav" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="favoriteMusic(videoId, false)" v-if="isMusicFavorite" />
-                        <img class="music_info_fav" src="/images/icon_fav_off.png" alt="즐겨찾기 취소" @click="favoriteMusic(videoId, true)" v-else />
+                        </div>
+                        <div>
+                            <span class="music_info_title">조회수</span>
+                            <span class="music_info_contents">{{ musicPlayCount }} 회</span>
+                        </div>
+                        <div>
+                            <span class="music_info_title">발매일</span>
+                            <span class="music_info_contents">{{ musicRelease.substr(0, 4) }}. {{ musicRelease.substr(4, 2) }}. {{ musicRelease.substr(6, 2) }} 발매</span>
+                        </div>
+                        <div>
+                            <span class="music_info_title">즐겨찾기</span>
+                            <img class="music_info_fav" src="/images/icon_fav_on.png" alt="즐겨찾기" @click="favoriteMusic(videoId, false)" v-if="isMusicFavorite" />
+                            <img class="music_info_fav" src="/images/icon_fav_off.png" alt="즐겨찾기 취소" @click="favoriteMusic(videoId, true)" v-else />
 
-                        <span class="music_info_fav_count">{{ musicFavoriteCount }} Likes</span>
+                            <span class="music_info_fav_count">{{ musicFavoriteCount }} Likes</span>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section id="music_lyrics_section">
-                <p class="music_lyrics_title">가사</p>
-                <div class="music_lyrics_contents" :class="{on: isExpandLyrics}">
-                    <p v-for="(line, index) in lyrics" :key="index">
-                        <span v-if="line === ''"> </span>
-                        <span v-else-if="index > 0">{{ line }}</span>
-                    </p>
-                </div>
-
-                <div class="music_lyrics_more_button_wrap">
-                    <div class="music_lyrics_more_button" @click="isExpandLyrics = !isExpandLyrics">
-                        <span v-if="isExpandLyrics">접기</span>
-                        <span v-else>펼치기</span>
-                        <img v-if="isExpandLyrics" src="/images/up_arrow.png" />
-                        <img v-else src="/images/down_arrow.png" />
+                <section id="music_lyrics_section">
+                    <p class="music_lyrics_title">가사</p>
+                    <div class="music_lyrics_contents" :class="{on: isExpandLyrics}">
+                        <p v-for="(line, index) in lyrics" :key="index">
+                            <span v-if="line === ''" class="empty"></span>
+                            <span v-else-if="index > 0">{{ line }}</span>
+                        </p>
                     </div>
-                </div>
-            </section>
 
-            <section id="artist_music_list_section">
-                <div id="artist_music_list_header">
+                    <div class="music_lyrics_more_button_wrap">
+                        <div class="music_lyrics_more_button" @click="isExpandLyrics = !isExpandLyrics">
+                            <span v-if="isExpandLyrics">접기</span>
+                            <span v-else>펼치기</span>
+                            <img v-if="isExpandLyrics" src="/images/up_arrow.png" />
+                            <img v-else src="/images/down_arrow.png" />
+                        </div>
+                    </div>
+                </section>
+
+                <section id="artist_music_list_section">
                     <span class="artist_music_list_title">{{ musicArtistName }}의 다른 음악</span>
 
-                    <div id="artist_music_list_paging_wrap">
-                        <span class="left" v-if="musicListPage === 1"><img src="/images/left_arrow_off.png" alt="" /></span>
-                        <span class="left" v-else @click="musicListPage -= 1"><img src="/images/left_arrow_on.png" alt="" /></span>
-                        <span class="right" v-if="musicList.length <= musicListPage * musicCountPerPage"><img src="/images/right_arrow_off.png" alt="" /></span>
-                        <span class="right" v-else @click="musicListPage += 1"><img src="/images/right_arrow_on.png" alt="" /></span>
+                    <div style="position: relative;">
+                        <div class="music_video_list_pagination_btn" @click="handleClickPrev">
+                            <img v-if="musicListPage === 1" class="left" src="/images/left_arrow_off.png" alt="" />
+                            <img v-else class="left" src="/images/left_arrow_on.png" alt="" />
+                        </div><div id="music_video_list_wrap">
+                            <MusicItem v-for="(music, index) in exposedLatestMusic" :key="index" :music="music" @play="playMusic" @favorite="favoriteMusic" />
+                        </div><div class="music_video_list_pagination_btn right" @click="handleClickNext">
+                            <img v-if="musicList.length <= musicListPage * musicCountPerPage" class="right" src="/images/right_arrow_off.png" alt="" />
+                            <img v-else class="right" src="/images/right_arrow_on.png" alt="" />
+                        </div>
                     </div>
-                </div>
-                <div id="music_video_list_wrap">
-                    <MusicItem v-for="(music, index) in exposedLatestMusic" :key="index" :music="music" @play="playMusic" @favorite="favoriteMusic" />
-                </div>
-            </section>
-
-            <section>
-                <div class="container" style=" position: relative; width: 100%; height: auto; text-align: center; padding: 0;">
+                </section>
+            </div>
+            <div>
+                <div class="ad_container">
                     <div style="width: 50%; height: 100%; display: inline-block; text-align: right; padding-right: 7px;">
                         <!-- 데스크탑 하단 배너 01 -->
                         <Adsense :styles="'display:inline-block;width:468px;height:60px'" :clientNo="'ca-pub-7268044498226837'" :slotNo="'4528767521'" />
@@ -87,7 +88,7 @@
                         <Adsense :styles="'display:inline-block;width:468px;height:60px'" :clientNo="'ca-pub-7268044498226837'" :slotNo="'1371803915'" />
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
 </template>
@@ -117,7 +118,7 @@
         name: 'Music',
         components: {
             MusicItem,
-            Adsense
+            Adsense,
         },
         props: {
             videoId: String
@@ -156,9 +157,7 @@
                 }
             },
             exposedLatestMusic () {
-                var a = this.musicList.slice((this.musicListPage - 1) * this.musicCountPerPage, this.musicListPage * this.musicCountPerPage);
-                console.log(a);
-                return a;
+                return this.musicList.slice((this.musicListPage - 1) * this.musicCountPerPage, this.musicListPage * this.musicCountPerPage);
             }
         },
         watch: {
@@ -269,8 +268,6 @@
 
                     const musicInfo = response.musicInfo;
 
-                    console.log(musicInfo);
-
                     this.musicTitle = musicInfo.title;
                     this.musicPlayCount = musicInfo.playCount;
                     this.musicRelease = musicInfo.release;
@@ -357,6 +354,20 @@
                 }).catch((error) => {
                     console.log(error);
                 });
+            },
+            handleClickPrev: function () {
+                if (this.musicListPage === 1) {
+                    return;
+                }
+
+                this.musicListPage--;
+            },
+            handleClickNext: function () {
+                if (this.musicList.length <= this.musicListPage * this.musicCountPerPage) {
+                    return;
+                }
+
+                this.musicListPage++;
             }
         }
     }
@@ -368,8 +379,11 @@
         & { min-height: 100%; height: 100%; overflow-y: auto; }
 
         #music_container {
-            & { position: relative; width: 100%; padding: 30px 50px 20px; margin: 0 auto; color: white; background: repeating-linear-gradient(140deg,#f361a6, #6b4d71, #f361a6 2000px); }
-            #music_title { font-size: 34px; margin-bottom: 15px; padding-left: 10px; display: block; }
+            & { position: relative; width: 100%; color: white; background: repeating-linear-gradient(140deg,#f361a6, #6b4d71, #f361a6 2000px); }
+            .container { width: 100%; padding: 30px 50px 0; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
+            .ad_container { width: 100%; height: auto; text-align: center; padding: 10px 0 3px 0; }
+
+            #music_title { font-size: 26px; margin-bottom: 15px; padding-left: 10px; display: block; }
 
             #music_info_section {
                 & { padding: 0 10px 40px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
@@ -378,7 +392,7 @@
                 #music_info_wrap {
                     & { margin-top: 20px; }
 
-                    span { font-size: 22px; color: #FFFFFF; line-height: 30px; }
+                    span { font-size: 15px; color: #FFFFFF; line-height: 30px; }
                     .music_info_title { width: 110px; display: inline-block; color: #DDDDDD; }
                     .music_info_artist { cursor: pointer; color: #FFFFFF; transition: initial; }
                     .music_info_artist:hover { text-decoration: underline; }
@@ -390,74 +404,36 @@
             #music_lyrics_section {
                 & { padding: 0 10px 40px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
 
-                .music_lyrics_title { font-size: 34px; line-height: 30px; margin-bottom: 12px; color: #FFFFFF; }
+                .music_lyrics_title { font-size: 26px; line-height: 30px; margin-bottom: 15px; color: #FFFFFF; }
                 .music_lyrics_contents { max-height: 250px; overflow: hidden; -webkit-transition: max-height 1.0s ease-out; transition: max-height 1.0s ease-out; }
                 .music_lyrics_contents.on { max-height: initial; }
-                .music_lyrics_contents > p { margin: 0; line-height: 32px; font-size: 24px; font-weight: 400; color: #EEEEEE; }
+                .music_lyrics_contents > p { margin: 0; line-height: 27px; font-size: 15px; font-weight: 400; color: #EEEEEE; }
+                .music_lyrics_contents .empty { height: 15px; display: block; }
 
                 .music_lyrics_more_button_wrap { height: 40px; text-align: center; }
                 .music_lyrics_more_button { display: inline-block; cursor: pointer; }
-                .music_lyrics_more_button > span { height: 40px; line-height: 40px; vertical-align: top; font-size: 22px; font-weight: 400; color: #FFFFFF; }
+                .music_lyrics_more_button > span { height: 40px; line-height: 40px; vertical-align: top; font-size: 17px; font-weight: 400; color: #FFFFFF; }
                 .music_lyrics_more_button > img { width: 12px; line-height: 40px; vertical-align: top; margin: 13px 0 0 5px; }
                 .music_lyrics_more_button:hover > span { text-decoration: underline; }
             }
 
 
             #artist_music_list_section {
-                & { min-height: 300px; padding: 0 10px 40px; margin-bottom: 30px; border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
+                & { min-height: 300px; padding: 0 10px 0; }
 
-                #artist_music_list_header {
-                    & { margin-bottom: 20px; margin-left: 5px; height: 30px; }
+                .artist_music_list_title { height: 30px; line-height: 30px; margin: 0 0 20px 5px; display: block; font-size: 26px; color: #FFF; }
 
-                    .artist_music_list_title { font-size: 25pt; font-weight: 400; color: #FFF; height: 30px; line-height: 30px; }
-                    #artist_music_list_paging_wrap {
-                        & { margin-right: 5px; margin-top: 1px; display: inline-block; float: right; vertical-align: top; }
-                        span { line-height: 28px; padding: 0 7px; display: inline-block; border: 1px solid #CCCCCC; cursor: pointer; background-color: #FFFFFF; vertical-align: top; }
-                        img { width: 15px; margin-top: 7px; vertical-align: top; }
-                        .left { border-bottom-left-radius: 6px; border-top-left-radius: 6px; }
-                        .right { border-bottom-right-radius: 6px; border-top-right-radius: 6px; }
-                    }
+                #music_video_list_wrap {
+                    & { width: calc(100% - 70px); margin: 0 auto; display: block; vertical-align: top; }
                 }
 
-                .music_item {
-                    & { width: 25%; padding: 0 7px 0; display: inline-block; vertical-align: top; }
-
-                    .music_item_info_wrap {
-                        & { position: relative; font-size: 12pt; border-bottom: none; display: block; text-align: left; border-radius: 6px; background-color: rgba(0, 0, 0, 0.25); outline: 0;
-                            -moz-transition: all 0.2s ease;
-                            -webkit-transition: all 0.2s ease;
-                            -ms-transition: all 0.2s ease;
-                            transition: all 0.2s ease;
-                        }
-                        &:hover { background-color: rgba(0, 0, 0, 0.15); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 0.5em 0 #AAAAAA; }
-                        & > div { position: relative; display: flex; }
-                        .music_item_thumbnail { width: 100%; cursor: pointer; }
-                        .music_item_thumbnail_cover { background:rgba(0,0,0,0.4); position: absolute; width: 100%; height: 100%; top: 0; left: 0; border-top-left-radius: 6px; border-top-right-radius: 6px; opacity: 0; cursor: pointer;
-                            -moz-transition: opacity 0.3s ease;
-                            -webkit-transition: opacity 0.3s ease;
-                            -ms-transition: opacity 0.3s ease;
-                            transition: opacity 0.3s ease;
-                        }
-                        .music_item_thumbnail_cover.active { opacity: 1; }
-                        .music_item_thumbnail_cover_img { width: 40px; position: absolute; bottom: 12px; right: 12px; }
-
-                        .music_item_info { width: calc(100% - 44px); position: relative; display: inline-block; padding: 5px 15px 7px; letter-spacing: 0.4px; line-height: 1; }
-                        .music_item_info > span { display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 100%; }
-                        .music_item_title { display: block; font-weight: 400; font-size: 23px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; cursor: pointer; line-height: 1.4; max-width: 100%; color: #FFFFFF !important; }
-                        .music_item_title:hover { text-decoration: underline; }
-                        .music_item_artist { display: inline-block; font-weight: 400; font-size: 20px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: 1; cursor: pointer; max-width: 100%; color: #FFFFFF !important; }
-                        .music_item_artist:hover { text-decoration: underline; }
-                        .music_item_release { display: block; font-size: 20px; line-height: 1; }
-                        .music_item_fav_div { display: inline-block; padding: 7px 10px 7px 0; letter-spacing: 0.4px; vertical-align: top; float: right; line-height: 4; }
-                        .music_item_fav { width: 32px; padding: 4px; margin-top: -4px; vertical-align: middle; cursor: pointer; }
-                        .music_item_arrow_div { display: inline-block; vertical-align: top; }
-                        .music_item_arrow { width: 12px; margin: 3px 0 0 5px; vertical-align: top; cursor: pointer; }
-
-                        .music_item_singer_div { position: absolute; width: 160px; margin: 3px 0 0 -70px; padding: 2px 15px; border: 1px solid #FFF; background: #444; z-index: 1; }
-                        .music_item_singer_item { position: relative; display: inline-block; margin: 0; padding: 0; cursor: pointer; line-height: 25px; vertical-align: top; font-size: 20px; color: #FFFFFF !important; transition: initial; }
-                        .music_item_singer_item:hover { text-decoration: underline; }
-                    }
+                .music_video_list_pagination_btn {
+                    & { position: absolute; width: 30px; height: 30px; top: 50%; margin-top: -30px; background-color: white; display: inline-block; border-radius: 50%; cursor: pointer; }
+                    &.right { right: 0; }
+                    .left { width: 16px; margin: 7px 0 0 6px; }
+                    .right { width: 16px; margin: 7px 0 0 8px; }
                 }
+
             }
         }
     }
